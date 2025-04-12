@@ -8,9 +8,9 @@ It supports arithmetic operations on primary data types `(double, float, int, ui
 
 ## Cumulative Sums (a.k.a Prefix Sums):
 ---
-The cumulative sum of a sequence \(a_i\) is a sequence defined as 
+The cumulative sum of a sequence `a_i` is a sequence defined as 
 
-\( s_k = \sum\limits_0^k a_k \)
+` sₖ = a₀ + a₁ + ... + aₖ`
 
 
 Updating or calculating from scratch the cumulative sum is an \(\mathcal{O}(N)\) operation.
