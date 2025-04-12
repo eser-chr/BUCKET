@@ -13,12 +13,12 @@ The cumulative sum of a sequence `a_i` is a sequence defined as
 ` sₖ = a₀ + a₁ + ... + aₖ`
 
 
-Updating or calculating from scratch the cumulative sum is an \(\mathcal{O}(N)\) operation.
+Updating or calculating from scratch the cumulative sum is an `O(N)` operation.
 
 
 # Problem
 ---
-Many algorithms (such as the Gillespie), at their core, have a main loop where both the underlying sequence and its cumulative sum are updated on every iteration based on a random number. If \(N  > 100\) this update is the bottleneck in the execution of the program. If \(N  > 10^6\)  we might start thinking for letting a GPU handle the cumulative sum.
+Many algorithms (such as the Gillespie), at their core, have a main loop where both the underlying sequence and its cumulative sum are updated on every iteration based on a random number. If `N>100` this update is the bottleneck in the execution of the program. If `N>1e6`  we might start thinking for letting a GPU handle the cumulative sum.
 
 In this project, however, we tackle another (not-so-rare) scenario found in many real-world applications in which the updates of the underlying data happen at a very small local range. For example at one iteration the underlying data present a change from element 40 to 50. In such a scenario we can use the so called lazy update protocol.
 
@@ -48,36 +48,36 @@ where \(sum_{row}\) is the sum of that particular row.
 
 ### Constraints:
 - You can choose the number of rows and columns for optimal efficiency in your specific case  [see Total Cost Comparison](#-total-cost-comparison).
-- The only requirement is that \(\text{ROWS}\cdot \text{COLS} \geq \text{size of the data}\).
+- The only requirement is that `ROWS x COLS >= size of the data`.
 
 
 
 ## Update the Data
 ---
 If an element of a particular row is updated:
-1) We need to calculate the sum of a ROW \(\mathcal{O}(\text{COLS})\)
+1) We need to calculate the sum of a ROW `O(COLS)`
 2) Adjust the cumulative sum of that row onward.
 
-Extra note: The last part can further be optimised because  in practice we can simply add the difference of the updated sum element to the rest of the elements in the cumulative sum, thus avoiding multiple reads of the sum vector. Still, the operation of the cumulative sum is linear \(\mathcal{O}(\text{ROWS})\). However, it is linear in terms of the number of ROWS, which for the majority of the relevant applications ROWS should be close to \(\sqrt{N}\).
+Extra note: The last part can further be optimised because  in practice we can simply add the difference of the updated sum element to the rest of the elements in the cumulative sum, thus avoiding multiple reads of the sum vector. Still, the operation of the cumulative sum is linear `O(ROWS)`. However, it is linear in terms of the number of ROWS, which for the majority of the relevant applications ROWS should be close to `sqrt(N)`.
 
 ## Find upper Bound
 ---
-This operation is crucial for sampling from distributions. Unfortunately, for this operation, we get a penalty for using this data structure. Initially, the upper bound in a sorted vector such as the full cumulative sum is \(\mathcal{O}(log N)\). Now, we have to:
+This operation is crucial for sampling from distributions. Unfortunately, for this operation, we get a penalty for using this data structure. Initially, the upper bound in a sorted vector such as the full cumulative sum is `O(logN)`. Now, we have to:
 1) Perform a binary search over the second layer of cumulative sums.
 2) A linear scan over the selected row.
 
-The total cost is \(\mathcal{O}(log(\text{ROWS}) + \text{COLS}) \approx \mathcal{O}(\text{COLS})\) vs the traditional \(\mathcal{O}(log N)\).
+The total cost is`O(log(ROWS)+COLS) \approx O(COLS)` vs the traditional `O(logN)`.
 
 
 
 
 ## Total Cost Comparison
 ---
-| Operation            | Standard Vector              | Lazy Bucket Version                         |
+| Operation            | Standard Vector              | Lazy Bucket Version                          |
 |----------------------|------------------------------|----------------------------------------------|
-| Update full cumsum   | \( \mathcal{O}(N) \)          | \( \mathcal{O}(\text{COLS} + \text{ROWS}) \) |
-| Find upper bound     | \( \mathcal{O}(\log N) \)     | \( \mathcal{O}(\log \text{ROWS} + \text{COLS}) \) |
-| Total per iteration  | Slow if large \( N \)         | Fast if changes are local                    |
+| Update full cumsum   | `O(N)`                       | `O(ROWS + COLS)`                             |
+| Find upper bound     | `O(log N) `                  | `O(log (ROWS) + COLS)`                       |
+| Total per iteration  | Slow if large `N`            | Fast if changes are local                    |
 
 
 ## Choose the correct values for ROWS, COLS
@@ -85,7 +85,7 @@ The total cost is \(\mathcal{O}(log(\text{ROWS}) + \text{COLS}) \approx \mathcal
 From the theoretical expressions shown in the previous section we get the best performace when
 
 
-\(\text{COLS} \approx \frac{\text{ROWS}}{3} ... \frac{\text{ROWS}}{2}\)
+`COLS \approx ROWS/3 ... ROWS/2`
 
 In some cases it also worths to use some padding on the underlying vector (add some ghost zeros at the end) to ensure that that the chosen number of columns and rows lead to a better efficiency.
 
