@@ -27,23 +27,23 @@ In this project, however, we tackle another (not-so-rare) scenario found in many
 ---
 Instead of storing the whole cumulative sum we can imagine as if the vector is in a matrix form  and for each row we calculate the sum of that row. Moreover, we keep a **second-level cumulative sum** over those row sums. Pictographically :
 
+**Lazy Update Breakdown**
 
-\[
-\begin{array}{lcl}
-\text{Raw data block} & \longrightarrow & \text{Row sum} \\
-\hline
-a_0, \ldots, a_{\text{COLS}-1} & \longrightarrow & \text{sum}_0 \\
-a_{\text{COLS}}, \ldots, a_{2\cdot\text{COLS}-1} & \longrightarrow & \text{sum}_1 \\
-\vdots & \ddots & \vdots \\
-a_{(\text{ROWS}-1)\cdot \text{COLS}}, \ldots, a_{\text{ROWS} \cdot \text{COLS} -1} & \longrightarrow & \text{sum}_{\text{ROWS}-1}
-\end{array}
-\]
+| Raw Data Block (Row)                                  | → | Row Sum         |
+|--------------------------------------------------------|----|------------------|
+| `a₀, a₁, ..., a₍COLS₋₁₎`                               | →  | `sum₀`           |
+| `a_COLS, ..., a_(2×COLS-1)`                            | →  | `sum₁`           |
+| `⋮`                                                    |    | `⋮`              |
+| `a_((ROWS-1)×COLS), ..., a_(ROWS×COLS - 1)`            | →  | `sum_{ROWS-1}`   |
 
-\[
-\text{Cumulative sum:} \quad \text{cum}_k = \sum_{i=0}^{k-1} \text{sum}_i
-\]
+**Cumulative sum of row sums:**
 
-where \(sum_{row}\) is the sum of that particular row.
+```
+cumₖ = sum₀ + sum₁ + ... + sumₖ₋₁
+```
+
+Where `sum_row` is the sum of that particular row.
+
 
 
 ### Constraints:
@@ -66,7 +66,7 @@ This operation is crucial for sampling from distributions. Unfortunately, for th
 1) Perform a binary search over the second layer of cumulative sums.
 2) A linear scan over the selected row.
 
-The total cost is`O(log(ROWS)+COLS) \approx O(COLS)` vs the traditional `O(logN)`.
+The total cost is`O(log(ROWS)+COLS) ~ O(COLS)` vs the traditional `O(logN)`.
 
 
 
