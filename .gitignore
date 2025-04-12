@@ -1,3 +1,19 @@
 .vscode
-todo
-main.cpp
+.build
+/build
+/CMakeFiles
+/CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Compiled binaries
+*.out
+*.o
+*.a
+*.so
+*.exe
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
