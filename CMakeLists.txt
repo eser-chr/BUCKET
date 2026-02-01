@@ -5,6 +5,7 @@ enable_testing()
 # Define header-only interface library
 add_library(bucket INTERFACE)
 
+
 target_include_directories(bucket INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
@@ -22,3 +23,4 @@ export(TARGETS bucket FILE bucketConfig.cmake)
 
 # Add tests
 add_subdirectory(tests)
+add_subdirectory(benchmarks)

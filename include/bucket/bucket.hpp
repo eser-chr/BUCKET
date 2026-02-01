@@ -274,6 +274,7 @@ public:
     _min_row_affected = _ROWS;
     _max_row_affected = 0;
   }
+
   /**
    * @brief Returns whether a given index is a valid result (not NOT_FOUND).
    */
@@ -281,6 +282,7 @@ public:
   {
     return index != NOT_FOUND;
   }
+
   /**
    * @brief Returns the index in the container where the cumulative sum reaches
    * or exceeds a threshold.

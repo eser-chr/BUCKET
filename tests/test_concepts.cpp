@@ -4,6 +4,7 @@
 #include <span>
 #include <valarray>
 #include <list>
+#include <cstdint>
 
 using namespace bucketlib;
 
