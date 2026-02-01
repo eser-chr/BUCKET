@@ -124,11 +124,15 @@ If you used cmake then the inclusion is
 #include <bucket/bucket.hpp>
 ```
 
+# BENCHMARKS
+
+![include](benchmarks.md)
+
 
 # Platform Support / Compiler
 ---
 It has been tested only under: 
-- Ubuntu 22.04
+- Ubuntu [22.04, 24.04]
 - GCC and Clang with C++ 20
 
 

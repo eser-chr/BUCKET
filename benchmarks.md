@@ -21,9 +21,9 @@ We alter one element at every row and force a full update. This tries to illustr
 
 Here are the comparison of bucket vs sequential for different problem sizes as indicated by the titles:
 
-![Speedup vs Rows](benchmarks/speedup_1.png)
-![Speedup vs Rows](benchmarks/speedup_10.png)
-![Speedup vs Rows](benchmarks/speedup_100.png)
+![Speedup vs Rows](resources/speedup_1.png)
+![Speedup vs Rows](resources/speedup_10.png)
+![Speedup vs Rows](resources/speedup_100.png)
 
 
 ## Conclusions
